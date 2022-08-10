@@ -1,4 +1,4 @@
-
+//Create Snake Class with constructor for snake
 class Snake {
     constructor(x, y, size) {
         this.x = x
@@ -8,7 +8,7 @@ class Snake {
         this.rotateX = 0
         this.rotateY = 1
     }
-
+    //Create move function 
     move() {
         var newRect;
         if (this.rotateX == 1) {
@@ -37,7 +37,7 @@ class Snake {
         this.tail.push(newRect)
     }
 }
-
+//Create Apple class, with constructor for apple
 class Apple {
     constructor() {
         console.log("Spawn Apple")
@@ -53,7 +53,7 @@ class Apple {
                 }
             }
             console.log(this.x, this.y)
-            this.color = "blue"
+            this.color = "red" //Set color of apple
             this.size = snake.size
 
             if (!isTouching) {
@@ -64,25 +64,29 @@ class Apple {
 }
 
 
-var canvas = document.getElementById("canvas")
-var snake = new Snake(20,20,20);
-var apple = new Apple();
-var canvasContext = canvas.getContext('2d');
+var canvas = document.getElementById("canvas") //Get canvas from HTML file
+var snake = new Snake(20,20,20); //Create Sanke
+var apple = new Apple(); //Create Apple
+var canvasContext = canvas.getContext('2d'); //Set context for canvas
 
+//As soon as the site loads, start gameLoop function
 window.onload = () => {
     gameLoop();
 }
 
+//Put show function in gameLoop
 function gameLoop() {
-    setInterval(show, 1000 / 10) //Set Speed
+    setInterval(show, 1000 / 15) //Set Speed for Snake
 
 }
 
+//Put update and draw function in show function
 function show() {
     update();
     draw();
 }
 
+//Update function consists of most mechanics for the game. 
 function update() {
     canvasContext.clearRect(0, 0, canvas.width, canvas.height)
     console.log("hallo update hallo")
@@ -91,7 +95,11 @@ function update() {
     checkHitWall();
 
 }
-
+/*
+Function for hitting wall. Game continues after hitting the wall, 
+although it can get hard to get the snake back on the canvas.
+Still working on that.
+*/
 function checkHitWall(){
     var headTail = snake.tail[snake.tail.length -1]
     if(headTail.x == - snake.size){
@@ -105,24 +113,28 @@ function checkHitWall(){
     }
 }
 
+//Eat apple function, for increasing snake length and adding new apple
 function eatApple(){
     if(snake.tail[snake.tail.length - 1].x == apple.x &&
         snake.tail[snake.tail.length - 1].y == apple.y){
             snake.tail[snake.tail.length] = {x: apple.x, y: apple.y}
             apple = new Apple();
+            apple1 = new Apple();
         }
 }
+
 
 function draw() {
     createRect(0, 0, canvas.width, canvas.height, "black")
     createRect(0, 0, canvas.width, canvas.height)
     for (var i = 0; i < snake.tail.length; i++) {
         createRect(snake.tail[i].x + 2.5, snake.tail[i].y + 2.5,
-            snake.size - 5, snake.size - 5, 'white')
+            snake.size - 5, snake.size - 5, 'green')
     }
+    //Create Scoreboard
     canvasContext.font = "20px Calibri"
     canvasContext.fillStyle = "#00ffb3"
-    canvasContext.fillText("Score:  " + (snake.tail.length - 1), canvas.width - 120, 20)
+    canvasContext.fillText("Score:  " + (snake.tail.length - 1), canvas.width - 120, 20) //Get score here
     createRect(apple.x, apple.y, apple.size, apple.size, apple.color)
 }
 
@@ -130,7 +142,7 @@ function createRect(x, y, width, height, color) {
     canvasContext.fillStyle = color
     canvasContext.fillRect(x, y, width, height)
 }
-
+//Set arrow-keys for movement
 window.addEventListener("keydown", (event)=>{
     setTimeout(()=>{
         if(event.keyCode == 37 && snake.rotateX != 1){
