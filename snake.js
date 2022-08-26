@@ -64,7 +64,7 @@ class Apple {
 }
 
 
-var canvas = document.getElementById("canvas") //Get canvas from HTML file
+var canvas = document.getElementById("canvas") //Get canvas from HTML file by Id
 var snake = new Snake(20,20,20); //Create Sanke
 var apple = new Apple(); //Create Apple
 var canvasContext = canvas.getContext('2d'); //Set context for canvas
