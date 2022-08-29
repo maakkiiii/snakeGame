@@ -53,7 +53,7 @@ class Apple {
                 }
             }
             console.log(this.x, this.y)
-            this.color = "red" //Set color of apple
+            this.color = "#ff4d67" //Set color of apple
             this.size = snake.size
 
             if (!isTouching) {
@@ -64,8 +64,8 @@ class Apple {
 }
 
 
-var canvas = document.getElementById("canvas") //Get canvas from HTML file by Id
-var snake = new Snake(20,20,20); //Create Sanke
+var canvas = document.getElementById("canvas") //Get canvas from HTML file by Id.
+var snake = new Snake(40,40,40); //Create Snake
 var apple = new Apple(); //Create Apple
 var canvasContext = canvas.getContext('2d'); //Set context for canvas
 
@@ -76,7 +76,7 @@ window.onload = () => {
 
 //Put show function in gameLoop
 function gameLoop() {
-    setInterval(show, 1000 / 15) //Set Speed for Snake
+    setInterval(show, 1000 / 7) //Set Speed for Snake
 
 }
 
@@ -129,12 +129,12 @@ function draw() {
     createRect(0, 0, canvas.width, canvas.height)
     for (var i = 0; i < snake.tail.length; i++) {
         createRect(snake.tail[i].x + 2.5, snake.tail[i].y + 2.5,
-            snake.size - 5, snake.size - 5, 'green')
+            snake.size - 5, snake.size - 5, 'gold')
     }
     //Create Scoreboard
-    canvasContext.font = "20px Calibri"
-    canvasContext.fillStyle = "#00ffb3"
-    canvasContext.fillText("Score:  " + (snake.tail.length - 1), canvas.width - 120, 20) //Get score here
+    canvasContext.font = "40px Calibri"
+    canvasContext.fillStyle = "ffd700"
+    canvasContext.fillText("Score:  " + (snake.tail.length - 1), canvas.width - 170, 45) //Get score here
     createRect(apple.x, apple.y, apple.size, apple.size, apple.color)
 }
 
